@@ -1,0 +1,22 @@
+@rem Ubuntuの自動化
+bcdedit /set hypervisorlaunchtype auto
+
+SET /P ANSWER="実行します。よろしいですか (Y/N)？"
+if /i {%ANSWER%}=={y} (goto :yes)
+if /i {%ANSWER%}=={yes} (goto :yes)
+
+if /i {%ANSWER%}=={n} (goto :no)
+if /i {%ANSWER%}=={no} (goto :no)
+
+:yes
+echo 処理実行
+echo msgbox “message”,vbInformation,”Title” > %TEMP%/msgboxtest.vbs & %TEMP%/msgboxtest.vbs
+
+@rem 再起動コマンド
+shutdown -r -t 0
+
+:no 自動化オフ実行
+bcdedit /set hypervisorlaunchtype off
+
+@rem 再起動コマンド
+shutdown -r -t 0
